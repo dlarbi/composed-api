@@ -11,8 +11,6 @@ import RecipesController from './controllers/recipes-controller.js';
 import ElasticsearchClient from './client/elasticsearch-client.js';
 import ElasticSearchGatheringService from './services/elasticsearch-gathering-service.js';
 
-// ElasticSearchGatheringService.syncElasticWithDynamoRecipeData();
-
 const app = express();
 app.use(express.json());
 const port = 3000; // TODO: Used COMPOSED_API_PORT from /app/config/conf.json
