@@ -1,5 +1,5 @@
 import RecipesService from './../services/recipes-service.js';
-import converter from '../utils/pdf-recipe-converter.js';
+import PDFMealPlanConverter from '../utils/pdf-meal-plan-converter.js';
 
 const RecipesController = function(app) {
   /*
@@ -71,11 +71,26 @@ const RecipesController = function(app) {
     }
   });
 
-  app.post('/recipes/import-pdf', async (req, res) => {
+  app.post('/recipes/import-recipes-pdf', async (req, res) => {
     const recipe = req.body.recipe;
     try {
-      var pdfPath = 'app/tmp/recipe-pdfs/glow-luteal.pdf';
+      var pdfPath = 'app/tmp/recipe-pdfs/my-recipes2.pdf';
       const result = await RecipesService.importRecipesFromPDF(pdfPath);
+      res.send(result);
+    } catch (err) {
+      res.send({
+        error: String(err),
+        status: 400
+      });
+    }
+  });
+
+  app.post('/recipes/import-meal-plan-pdf', async (req, res) => {
+    const recipe = req.body.recipe;
+    try {
+      var pdfPath = 'app/tmp/recipe-pdfs/prenatal-diet.pdf';
+      const models = await PDFMealPlanConverter.pdfToMealPlanModel(pdfPath);
+      // const result = await MealPlansService.importMealPlanFromPDF(pdfPath);
       res.send(result);
     } catch (err) {
       res.send({

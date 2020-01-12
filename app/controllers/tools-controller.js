@@ -50,6 +50,24 @@ const ToolsController = function(app) {
       });
     }
   });
+
+  /*
+  * Search Elasticsearch for tools
+  */
+  app.post('/tools/search', async (req, res) => {
+    try {
+      let result = {};
+      if (Object.keys(req.body).length) {
+        result = await ToolsService.search(req.body);
+      }
+      res.send(result);
+    } catch (err) {
+      res.send({
+        error: String(err),
+        status: 400
+      });
+    }
+  });
 }
 
 export default ToolsController;

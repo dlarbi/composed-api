@@ -35,10 +35,19 @@ async function getToolsByUserId(userId) {
   return tools;
 };
 
+async function search(query) {
+  if (query.fields && query.query) {
+    return Tool.searchMultipleFields(query);
+  } else {
+    return Tool.search(query);
+  }
+}
+
 export default {
   saveTool,
   getToolById,
   getAllTools,
   findTools,
-  getToolsByUserId
+  getToolsByUserId,
+  search
 };

@@ -1,0 +1,11 @@
+const RECIPES_COLLECTION_NAME = 'recipes';
+const RECIPES_ES_INDEX_NAME = 'recipes';
+const TOOLS_ES_INDEX_NAME = 'tools';
+const TOOLS_COLLECTION_NAME = 'tools';
+
+export default {
+  RECIPES_COLLECTION_NAME,
+  RECIPES_ES_INDEX_NAME,
+  TOOLS_ES_INDEX_NAME,
+  TOOLS_COLLECTION_NAME
+}

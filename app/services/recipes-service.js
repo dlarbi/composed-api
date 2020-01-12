@@ -1,5 +1,5 @@
 import Recipe from './../model/recipe.js';
-import converter from './../utils/pdf-recipe-converter.js';
+import PDFRecipeConverter from './../utils/pdf-recipe-converter.js';
 
 async function saveRecipe(recipe) {
   const existingRecipe = await findRecipes({ title: recipe.title });
@@ -22,7 +22,7 @@ async function findRecipes(query) {
 };
 
 async function importRecipesFromPDF(pdfPath, pdfFile) {
-  const models = await converter.pdfToRecipeModels(pdfPath);
+  const models = await PDFRecipeConverter.pdfToRecipeModels(pdfPath);
   const promises = models.map(model => saveRecipe(model))
   return Promise.all(promises);
 }

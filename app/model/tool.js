@@ -2,8 +2,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import config from './../middleware/config.js';
 import DynamodbClient from '../client/dynamodb-client.js';
-
-const TOOLS_COLLECTION_NAME = 'tools';
+import { TOOLS_ES_INDEX_NAME, TOOLS_COLLECTION_NAME } from './../constants/constants.js';
 
 class Tool {
   constructor(tool = {}) {
@@ -39,6 +38,21 @@ class Tool {
     const tools = await DynamodbClient.query(TOOLS_COLLECTION_NAME, query);
     return tools;
   };
+
+  // Goes to elasticsearch for bettery query capability
+  static async search(query) {
+    return ElasticsearchClient.search(TOOLS_ES_INDEX_NAME, {
+      match: query
+    });
+  }
+
+  // Goes to elasticsearch, queries multiple fields at once
+  // example query structure: { query: "example search", fields: ["title", "description"]}
+  static async searchMultipleFields(query) {
+    return ElasticsearchClient.search(TOOLS_ES_INDEX_NAME, {
+      multi_match: query
+    });
+  }
 }
 
 export default Tool;

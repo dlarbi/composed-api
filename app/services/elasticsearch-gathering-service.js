@@ -5,8 +5,7 @@
 import DynamodbClient from '../client/dynamodb-client.js';
 import ElasticsearchClient from '../client/elasticsearch-client.js';
 import RecipesService from '../services/recipes-service.js';
-
-const RECIPE_INDEX_NAME = 'recipes';
+import { RECIPES_ES_INDEX_NAME, TOOLS_ES_INDEX_NAME } from '../constants/constants.js';
 
 class ElasticSearchGatheringService {
   static async gatherRecipesFromDynamodb() {
@@ -15,11 +14,20 @@ class ElasticSearchGatheringService {
   }
 
   static async syncElasticWithDynamoRecipeData() {
-    await ElasticsearchClient.deleteIndex(RECIPE_INDEX_NAME);
-    await ElasticsearchClient.createIndex(RECIPE_INDEX_NAME);
+    await ElasticsearchClient.deleteIndex(RECIPES_ES_INDEX_NAME);
+    await ElasticsearchClient.createIndex(RECIPES_ES_INDEX_NAME);
     const dynamodbRecipes = await ElasticSearchGatheringService.gatherRecipesFromDynamodb();
     dynamodbRecipes.map(recipe =>
-      ElasticsearchClient.saveRecord(RECIPE_INDEX_NAME, recipe)
+      ElasticsearchClient.saveRecord(RECIPES_ES_INDEX_NAME, recipe)
+    );
+  }
+
+  static async syncElasticWithDynamoToolsData() {
+    await ElasticsearchClient.deleteIndex(RECIPES_ES_INDEX_NAME);
+    await ElasticsearchClient.createIndex(RECIPES_ES_INDEX_NAME);
+    const dynamodbRecipes = await ElasticSearchGatheringService.gatherRecipesFromDynamodb();
+    dynamodbRecipes.map(recipe =>
+      ElasticsearchClient.saveRecord(RECIPES_ES_INDEX_NAME, recipe)
     );
   }
 }

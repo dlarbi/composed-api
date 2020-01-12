@@ -1,8 +1,10 @@
 import DynamodbClient from '../client/dynamodb-client.js';
 import ElasticsearchClient from './../client/elasticsearch-client.js';
+import {
+  RECIPES_COLLECTION_NAME,
+  RECIPES_ES_INDEX_NAME
+} from './../constants/constants.js';
 
-const RECIPES_COLLECTION_NAME = 'recipes';
-const RECIPES_ES_INDEX_NAME = 'recipes';
 class Recipe {
   constructor(recipe = {}) {
     Object.keys(recipe).forEach((key) => {

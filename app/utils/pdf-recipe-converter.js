@@ -1,3 +1,8 @@
+/**
+* Given a PDF recipe book generated in a particular format, this util will create Recipe models for the
+* composed-api
+* TODO: Extend to support other import formats
+*/
 import pdf2html from 'pdf2html';
 import PNGCrop from 'png-crop';
 import fs from 'fs';
@@ -25,12 +30,15 @@ function cleanPDFHtml(html) {
   return result;
 }
 
+const PAGE_START_STR = '<div class="page">';
+const PAGE_END_STR = '<p>Krista King';
+
 function getHTMLPagesFromPDFHTML(html) {
   html = cleanPDFHtml(html);
 
   const htmlPages = [];
-  let startIdxs = Utils.getAllIndexes(html, '<div class="page">'); // marks beginning of a page in the PDF
-  const endIdxs = Utils.getAllIndexes(html, '<p>Krista King'); // marks end of a page
+  let startIdxs = Utils.getAllIndexes(html, PAGE_START_STR); // marks beginning of a page in the PDF
+  const endIdxs = Utils.getAllIndexes(html, PAGE_END_STR); // marks end of a page
 
   // Dirty checking that fixes a bug where uploads break if there is a title page which doesnt start and end in our defined
   // start/end indexes
@@ -40,7 +48,7 @@ function getHTMLPagesFromPDFHTML(html) {
   }
 
   startIdxs.forEach((idx, i) => {
-    const htmlPage = html.substring(idx + '<div class="page">'.length, endIdxs[i]);
+    const htmlPage = html.substring(idx + PAGE_START_STR.length, endIdxs[i]);
     htmlPages.push(htmlPage);
   });
   return htmlPages;

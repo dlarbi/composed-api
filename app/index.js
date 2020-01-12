@@ -11,6 +11,10 @@ import RecipesController from './controllers/recipes-controller.js';
 import ElasticsearchClient from './client/elasticsearch-client.js';
 import ElasticSearchGatheringService from './services/elasticsearch-gathering-service.js';
 
+// We don't have a CRON to execute this yet.  We can sync dynamo with our search index by uncommenting
+// and rebooting app:
+// ElasticSearchGatheringService.syncElasticWithDynamoRecipeData();
+
 const app = express();
 app.use(express.json());
 const port = 3000; // TODO: Used COMPOSED_API_PORT from /app/config/conf.json
