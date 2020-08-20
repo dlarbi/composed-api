@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.591.0",
-    "bcrypt": "^3.0.7",
+    "bcrypt": "^5.0.0",
     "dotenv": "^8.2.0",
     "dynamodb-to-elasticsearch": "^0.2.1",
     "dynamoose": "^1.11.1",
