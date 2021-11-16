@@ -10,7 +10,7 @@
   "author": "Dean Larbi",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.591.0",
+    "aws-sdk": "^2.814.0",
     "bcrypt": "^3.0.7",
     "dotenv": "^8.2.0",
     "dynamodb-to-elasticsearch": "^0.2.1",
