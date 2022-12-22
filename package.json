@@ -19,7 +19,7 @@
     "express": "^4.17.1",
     "fs": "0.0.1-security",
     "http-aws-es": "^6.0.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "lodash": "^4.17.15",
     "pdf-to-text": "0.0.7",
     "pdf2html": "^2.5.0",
